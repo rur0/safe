@@ -1,6 +1,11 @@
 package safe
 
-import "strconv"
+import (
+	"strconv"
+
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
+)
 
 type Bill uint
 
@@ -30,4 +35,9 @@ func (bbs BillBunches) Sum() uint {
 		sum += bb.Sum()
 	}
 	return sum
+}
+
+func (bbs BillBunches) String() string {
+	p := message.NewPrinter(language.English)
+	return p.Sprintf("%.2f", float64(bbs.Sum())/100)
 }
